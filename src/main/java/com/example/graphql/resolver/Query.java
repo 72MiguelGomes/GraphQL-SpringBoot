@@ -4,19 +4,19 @@ import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.example.graphql.model.Author;
 import com.example.graphql.model.Book;
 import com.example.graphql.repo.AuthorRepository;
-import com.example.graphql.repo.BookRespository;
+import com.example.graphql.repo.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class Query implements GraphQLQueryResolver {
 
-  private final BookRespository bookRespository;
+  private final BookRepository bookRepository;
 
   private final AuthorRepository authorRepository;
 
   @Autowired
-  public Query(BookRespository bookRespository,
+  public Query(BookRepository bookRepository,
       AuthorRepository authorRepository) {
-    this.bookRespository = bookRespository;
+    this.bookRepository = bookRepository;
     this.authorRepository = authorRepository;
   }
 
@@ -25,7 +25,7 @@ public class Query implements GraphQLQueryResolver {
   }
 
   public Iterable<Book> findAllBooks() {
-    return this.bookRespository.findAll();
+    return this.bookRepository.findAll();
   }
 
   public Long countAuthors() {
@@ -33,7 +33,7 @@ public class Query implements GraphQLQueryResolver {
   }
 
   public Long countBooks() {
-    return this.bookRespository.count();
+    return this.bookRepository.count();
   }
 
 }
