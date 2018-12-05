@@ -6,7 +6,9 @@ import com.example.graphql.model.Book;
 import com.example.graphql.repo.AuthorRepository;
 import com.example.graphql.repo.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Query implements GraphQLQueryResolver {
 
   private final BookRepository bookRepository;

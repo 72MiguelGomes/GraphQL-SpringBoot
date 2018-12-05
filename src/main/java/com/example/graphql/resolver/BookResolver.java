@@ -4,9 +4,10 @@ import com.coxautodev.graphql.tools.GraphQLResolver;
 import com.example.graphql.model.Author;
 import com.example.graphql.model.Book;
 import com.example.graphql.repo.AuthorRepository;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BookResolver implements GraphQLResolver<Book> {
 
   private final AuthorRepository authorRepository;
@@ -17,9 +18,6 @@ public class BookResolver implements GraphQLResolver<Book> {
   }
 
   public Author getAuthor(Book book) {
-    Optional<Author> authorOpt = this.authorRepository.findById(book.getAuthor().getId());
-
-    // TODO: Fix this
-    return authorOpt.orElse(null);
+    return this.authorRepository.findOne(book.getAuthor().getId());
   }
 }

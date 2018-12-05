@@ -5,9 +5,9 @@ import com.example.graphql.model.Author;
 import com.example.graphql.model.Book;
 import com.example.graphql.repo.AuthorRepository;
 import com.example.graphql.repo.BookRepository;
-import java.util.Optional;
-import javax.persistence.EntityNotFoundException;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Mutation implements GraphQLMutationResolver {
 
   private final BookRepository bookRepository;
@@ -34,19 +34,12 @@ public class Mutation implements GraphQLMutationResolver {
   }
 
   public boolean deleteBook(Long bookId) {
-    this.bookRepository.deleteById(bookId);
+    this.bookRepository.delete(bookId);
     return true;
   }
 
   public Book updateBookPageCount(Integer pageCount, Long bookId) {
-
-    final Optional<Book> bookOpt = this.bookRepository.findById(bookId);
-
-    if (!bookOpt.isPresent()) {
-      throw new EntityNotFoundException("Book Not found");
-    }
-
-    final Book book = bookOpt.get();
+    final Book book = this.bookRepository.findOne(bookId);
 
     book.setPageCount(pageCount);
 
