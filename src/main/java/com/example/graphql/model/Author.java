@@ -1,5 +1,7 @@
 package com.example.graphql.model;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,6 +14,7 @@ public class Author {
 
   @Id
   @GeneratedValue
+  @Access(AccessType.PROPERTY)
   private Long id;
 
   private String firstName;
